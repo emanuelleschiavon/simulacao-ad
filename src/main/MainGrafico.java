@@ -31,7 +31,7 @@ public class MainGrafico extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	public MainGrafico(List<Cliente> clientes, String tipo, String yAxisLabel){
-		super("XY Line Chart Example with JFreechart");
+		super("XY Line Chart");
 		 
 		JPanel chartPanel = createChartPanel(clientes, tipo, yAxisLabel);
 		add(chartPanel, BorderLayout.CENTER);
@@ -41,25 +41,29 @@ public class MainGrafico extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
-	private XYDataset createDataset(List<Cliente> clientes) {
+	private XYDataset createDataset(List<Cliente> clientes, String yAxisLabel) {
 	    XYSeriesCollection dataset = new XYSeriesCollection();
-	    XYSeries series1 = new XYSeries("Object 1");
+	    XYSeries series1 = new XYSeries("lambda = 0.9; mu = 1");
 	
-	 for (Cliente c : clientes) {
-		 series1.add(c.getChegada(), c.getServico());
-	}
-	     
+	 if(yAxisLabel.compareTo("tempo de servico") == 0)
+		 for (Cliente c : clientes) {
+			 series1.add(c.getChegada(), c.getServico());
+		}
+	 if(yAxisLabel.compareTo("servico pendente") == 0)
+		 for (Cliente c : clientes) {
+			 series1.add(c.getChegada(), c.getPendente());
+		}
 	    dataset.addSeries(series1);
 	 
 	    return dataset;
 	}
 	
-	private JPanel createChartPanel(List<Cliente> clientes, String tipo, String yAxisLabel) {
-	    String chartTitle = tipo;
+	private JPanel createChartPanel(List<Cliente> clientes, String tipoServidor, String yAxisLabel) {
+	    String chartTitle = tipoServidor;
 	    String xAxisLabel = "chegada";
 	   
 	 
-	    XYDataset dataset = createDataset(clientes);
+	    XYDataset dataset = createDataset(clientes, yAxisLabel);
 	 
 	    JFreeChart chart = ChartFactory.createXYLineChart(chartTitle,
 	            xAxisLabel, yAxisLabel, dataset);
@@ -87,19 +91,23 @@ public class MainGrafico extends JFrame {
 		Pilha pilha = new Pilha();
 		List<Cliente> clientes = geraClientes();
 		
-		sim.setClientes(clientes);
-		sim.fcfs(fila);
-		new MainGrafico(clientes, "fcfs sem preempcao", "tempo de servico").setVisible(true);
-		
-		clientes.clear();
-		clientes = geraClientes();
+//		sim.setClientes(clientes);
+//		sim.fcfs(fila);
+//		new MainGrafico(clientes, "fcfs sem preempcao", "tempo de servico").setVisible(true);
+//		new MainGrafico(clientes, "fcfs sem preempcao", "servico pendente").setVisible(true);
+//		
+//		clientes.clear();
+//		clientes = geraClientes();
 		sim.lcfsComPreempcao(pilha);
 		new MainGrafico(clientes, "lcfs com preempcao", "tempo de servico").setVisible(true);
+		new MainGrafico(clientes, "lcfs com preempcao", "servico pendente").setVisible(true);
 		
 		clientes.clear();
 		clientes = geraClientes();
 		sim.lcfsSemPreempcao(pilha);
 		new MainGrafico(clientes, "lcfs sem preempcao", "tempo de servico").setVisible(true);
+		new MainGrafico(clientes, "lcfs sem preempcao", "servico pendente").setVisible(true);
+		
 		
 	}
 	

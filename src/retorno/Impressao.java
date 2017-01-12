@@ -35,12 +35,29 @@ public class Impressao {
 	
 	public static void imprimeSaida(List<Cliente> clientes){
 		int i = 0;
+		System.out.println("Simulacao servidor: " + tipoServidor);
 		for (Cliente cliente : clientes) {
 			i++;
 			System.out.println("cliente: (" + i + ")");
 			System.out.println("Chegada " + cliente.getChegada().toString());
 			System.out.println("Serviço " + cliente.getServico().toString());
 			System.out.println("Saída " + cliente.getSaida().toString());
+			System.out.println("Servico pendente: " + cliente.getPendente());
+			System.out.println("Primeira alocacao na fila: " + cliente.getTamanhoFilaChegada() + "\n");
+		}
+	}
+
+	
+	public static void imprimeSaida(List<Cliente> clientes, String tipoServidor){
+		int i = 0;
+		System.out.println("Simulacao servidor: " + tipoServidor);
+		for (Cliente cliente : clientes) {
+			i++;
+			System.out.println("cliente: (" + i + ")");
+			System.out.println("Chegada " + cliente.getChegada().toString());
+			System.out.println("Serviço " + cliente.getServico().toString());
+			System.out.println("Saída " + cliente.getSaida().toString());
+			System.out.println("Servico pendente: " + cliente.getPendente());
 			System.out.println("Primeira alocacao na fila: " + cliente.getTamanhoFilaChegada() + "\n");
 		}
 	}

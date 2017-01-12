@@ -39,7 +39,7 @@ public class Simulacao {
 		fcfsComPreempcao2Filas(fila1, fila2);
 	}
 	
-	private void lcfsSemPreempcao(Pilha pilha){
+	public void lcfsSemPreempcao(Pilha pilha){
 		ServidorLCFSSemPreempcao servidor = new ServidorLCFSSemPreempcao();
 		for (Cliente cliente : clientes) {
 			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
@@ -51,7 +51,7 @@ public class Simulacao {
 		Impressao.imprimeSaida(clientes);
 	}
 	
-	private void lcfsComPreempcao(Pilha pilha){
+	public void lcfsComPreempcao(Pilha pilha){
 		ServidorLCFSComPreempcao servidor = new ServidorLCFSComPreempcao();
 		for (Cliente cliente : clientes) {
 			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
@@ -62,7 +62,7 @@ public class Simulacao {
 //		Impressao.imprimeSaida(clientes);
 	}
 	
-	private void fcfs(Fila fila){
+	public void fcfs(Fila fila){
 		ServidorFCFS servidor = new ServidorFCFS();
 		int indiceCliente = -1;
 
@@ -76,7 +76,7 @@ public class Simulacao {
 		Impressao.imprimeSaida(clientes);
 	}
 	
-	private void fcfsComPreempcao2Filas(Fila fila1, Fila fila2){
+	public void fcfsComPreempcao2Filas(Fila fila1, Fila fila2){
 		ServidorFCFSComPreempcao2Classes servidor = new ServidorFCFSComPreempcao2Classes();
 		ServidorFCFS servidorfcfs = new ServidorFCFS();
 		
