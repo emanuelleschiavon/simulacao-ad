@@ -1,6 +1,7 @@
 package fcfs;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import entidade.Cliente;
@@ -10,11 +11,14 @@ public class ServidorFCFS {
 	private Cliente servidor;
 	
 	public void tentaDesocuparServidor(Cliente clienteChegada, Fila fila) {
+		List<Cliente> auxRemove = new ArrayList<>();
 		for (Cliente c : fila.getFilaClientes()) {
 			if(servidor.getSaida().compareTo(c.getChegada()) != 1){
-				fila.getFilaClientes().remove(c);
+				auxRemove.add(c);
 			}
 		}
+		fila.getFilaClientes().removeAll(auxRemove);
+		
 		if (servidor != null && servidor.getSaida().compareTo(clienteChegada.getChegada()) != 1){
 			servidor = null;
 		}

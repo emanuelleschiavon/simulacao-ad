@@ -91,22 +91,22 @@ public class MainGrafico extends JFrame {
 		Pilha pilha = new Pilha();
 		List<Cliente> clientes = geraClientes();
 		
-//		sim.setClientes(clientes);
-//		sim.fcfs(fila);
-//		new MainGrafico(clientes, "fcfs sem preempcao", "tempo de servico").setVisible(true);
-//		new MainGrafico(clientes, "fcfs sem preempcao", "servico pendente").setVisible(true);
+		sim.setClientes(clientes);
+		sim.fcfs(fila);
+		new MainGrafico(clientes, "fcfs sem preempcao", "tempo de servico").setVisible(true);
+		new MainGrafico(clientes, "fcfs sem preempcao", "servico pendente").setVisible(true);
+		
+//		clientes.clear();
+//		clientes = geraClientes();
+//		sim.lcfsComPreempcao(pilha);
+//		new MainGrafico(clientes, "lcfs com preempcao", "tempo de servico").setVisible(true);
+//		new MainGrafico(clientes, "lcfs com preempcao", "servico pendente").setVisible(true);
 //		
 //		clientes.clear();
 //		clientes = geraClientes();
-		sim.lcfsComPreempcao(pilha);
-		new MainGrafico(clientes, "lcfs com preempcao", "tempo de servico").setVisible(true);
-		new MainGrafico(clientes, "lcfs com preempcao", "servico pendente").setVisible(true);
-		
-		clientes.clear();
-		clientes = geraClientes();
-		sim.lcfsSemPreempcao(pilha);
-		new MainGrafico(clientes, "lcfs sem preempcao", "tempo de servico").setVisible(true);
-		new MainGrafico(clientes, "lcfs sem preempcao", "servico pendente").setVisible(true);
+//		sim.lcfsSemPreempcao(pilha);
+//		new MainGrafico(clientes, "lcfs sem preempcao", "tempo de servico").setVisible(true);
+//		new MainGrafico(clientes, "lcfs sem preempcao", "servico pendente").setVisible(true);
 		
 		
 	}
