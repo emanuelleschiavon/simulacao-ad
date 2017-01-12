@@ -6,6 +6,8 @@ public class Cliente {
 	private BigDecimal chegada;
 	private BigDecimal saida;
 	private BigDecimal servico;
+	private BigDecimal pendente;
+	private int tamanhoFilaChegada = 0;
 	
 	public BigDecimal getChegada() {
 		return chegada;
@@ -26,6 +28,18 @@ public class Cliente {
 	}
 	public void setServico(BigDecimal servico) {
 		this.servico = servico;
+	}
+	public int getTamanhoFilaChegada() {
+		return tamanhoFilaChegada;
+	}
+	public void setTamanhoFilaChegada(int tamanhoFilaChegada) {
+		this.tamanhoFilaChegada = tamanhoFilaChegada;
+	}
+	public BigDecimal getPendente() {
+		return pendente;
+	}
+	public void setPendente(BigDecimal pendente) {
+		this.pendente = pendente;
 	}
 	
 }

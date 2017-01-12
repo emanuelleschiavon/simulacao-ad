@@ -10,32 +10,33 @@ public class ServidorFCFSComPreempcao2Classes {
 	private Cliente servidor;
 	
 	public Cliente verificaClienteAtendidoAntes(Cliente clienteFila1, Cliente clienteFila2){
-		if ((clienteFila2.getChegada().add(clienteFila2.getServico())).compareTo(clienteFila1.getChegada()) != 1){
-			return clienteFila1;
+		if (servidor == null) {return null;}
+		//se saida do cliente da fila 2 nao for mais 
+		if ((servidor.getSaida().add(clienteFila2.getServico())).compareTo(clienteFila1.getChegada()) != 1){
+			return clienteFila2;
 		}
-		return clienteFila2;
+		return clienteFila1;
 	}
 	
-	public Cliente tentaDesocuparServidor(Cliente clienteChegada) {
-		Cliente clienteExpulso = new Cliente();
+	public void tentaDesocuparServidor(Cliente clienteChegada) {
 		if (servidor != null && servidor.getSaida().compareTo(clienteChegada.getChegada()) != 1){
-			clienteExpulso = servidor;
+			servidor = null;
 		}
-		servidor = null;
-		return clienteExpulso;
 	}
 	
-	public void tentaAtendimento(Cliente clienteCorrente, Fila fila1, Fila fila2, List<Cliente> clientes, int indiceCliente){
+	public BigDecimal tentaAtendimento(Cliente clienteCorrente, Fila fila, List<Cliente> clientes, int indiceCliente){
 		BigDecimal residual = BigDecimal.ZERO;
 		if (servidor == null){		//sistema vazio
 			servidor = clienteCorrente;
 		}else {							//servidor ocupado
 			Cliente clienteAnterior = clientes.get(indiceCliente-1);
 			residual = (servidor.getSaida().subtract(clienteCorrente.getChegada()));
-			fila1.adicionaFila(clienteCorrente);
-			servicosFila(fila1, clienteCorrente, residual, clienteAnterior);
-			servidor = fila1.getFilaClientes().get(0);
+			fila.adicionaFila(clienteCorrente);
+			clienteCorrente.setTamanhoFilaChegada(fila.getFilaClientes().size()); //guarda lugar na fila para impressao
+			servicosFila(fila, clienteCorrente, residual, clienteAnterior);
+			servidor = fila.getFilaClientes().get(0);
 		}
+		return residual;
 	}
 	
 	// TODO Saída vai ser ou a taxa de entrada ou a taxa de saída de quem saiu
@@ -45,4 +46,11 @@ public class ServidorFCFSComPreempcao2Classes {
 		clienteCorrente.setSaida(somaServicos);
 	}
 
+	public BigDecimal pegaTrabalhoPendenteSemResidual(Fila fila) {
+		BigDecimal trabalhoPendente = BigDecimal.ZERO;
+		for (Cliente c : fila.getFilaClientes()){
+			trabalhoPendente = trabalhoPendente.add(c.getServico());
+		}
+		return trabalhoPendente;
+	}
 }
