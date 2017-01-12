@@ -9,7 +9,12 @@ import entidade.Fila;
 public class ServidorFCFS {
 	private Cliente servidor;
 	
-	public void tentaDesocuparServidor(Cliente clienteChegada) {
+	public void tentaDesocuparServidor(Cliente clienteChegada, Fila fila) {
+		for (Cliente c : fila.getFilaClientes()) {
+			if(servidor.getSaida().compareTo(c.getChegada()) != 1){
+				fila.getFilaClientes().remove(c);
+			}
+		}
 		if (servidor != null && servidor.getSaida().compareTo(clienteChegada.getChegada()) != 1){
 			servidor = null;
 		}
