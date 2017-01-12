@@ -30,4 +30,12 @@ public class ServidorLCFSComPreempcao {
 		}
 	}
 	
+	public BigDecimal pegaTrabalhoPendenteSemResidual(Pilha pilha) {
+		BigDecimal trabalhoPendente = BigDecimal.ZERO;
+		for (Cliente c : pilha.getPilhaInvertida()){
+			trabalhoPendente = trabalhoPendente.add(c.getServico());
+		}
+		return trabalhoPendente;
+	}
+	
 }

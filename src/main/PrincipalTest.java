@@ -14,7 +14,7 @@ public class PrincipalTest {
 	
 	private static final double LAMBDA = 0.9; // taxa chegada
 	private static final double MU = 1; // taxa servico
-	private static final int N = 1000;  // total clientes
+	private static final int N = 10;  // total clientes
 	
 	@Test
 	public void simulacaoTest() throws Exception{

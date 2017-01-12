@@ -5,5 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="C:/Users/emanu/git/simulacao-ad/bibliotecas/jcommon-1.0.23.jar"/>
 	<classpathentry kind="lib" path="C:/Users/emanu/Dropbox/AD/jfreechart-1.0.19/lib/jfreechart-1.0.19.jar"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
