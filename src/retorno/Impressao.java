@@ -35,7 +35,6 @@ public class Impressao {
 	
 	public static void imprimeSaida(List<Cliente> clientes){
 		int i = 0;
-		System.out.println("Simulacao servidor: " + tipoServidor);
 		for (Cliente cliente : clientes) {
 			i++;
 			System.out.println("cliente: (" + i + ")");
