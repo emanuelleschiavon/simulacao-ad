@@ -15,7 +15,7 @@ public class ServidorFCFS {
 		}
 	}
 	
-	public void tentaAtendimento(Cliente clienteCorrente, Fila fila, List<Cliente> clientes, int indiceCliente){
+	public BigDecimal tentaAtendimento(Cliente clienteCorrente, Fila fila, List<Cliente> clientes, int indiceCliente){
 		BigDecimal residual = BigDecimal.ZERO;
 		if (servidor == null){		//sistema vazio
 			servidor = clienteCorrente;
@@ -23,9 +23,11 @@ public class ServidorFCFS {
 			Cliente clienteAnterior = clientes.get(indiceCliente-1);
 			residual = (servidor.getSaida().subtract(clienteCorrente.getChegada()));
 			fila.adicionaFila(clienteCorrente);
+			clienteCorrente.setTamanhoFilaChegada(fila.getFilaClientes().size()); //guarda lugar na fila para impressao
 			servicosFila(fila, clienteCorrente, residual, clienteAnterior);
 			servidor = fila.getFilaClientes().get(0);
 		}
+		return residual;
 	}
 	
 	// TODO Saída vai ser ou a taxa de entrada ou a taxa de saída de quem saiu
@@ -33,5 +35,13 @@ public class ServidorFCFS {
 		BigDecimal somaServicos = residual;
 		somaServicos = clienteCorrente.getServico().add(clienteAnterior.getSaida());
 		clienteCorrente.setSaida(somaServicos);
+	}
+
+	public BigDecimal pegaTrabalhoPendenteSemResidual(Fila fila) {
+		BigDecimal trabalhoPendente = BigDecimal.ZERO;
+		for (Cliente c : fila.getFilaClientes()){
+			trabalhoPendente = trabalhoPendente.add(c.getServico());
+		}
+		return trabalhoPendente;
 	}
 }

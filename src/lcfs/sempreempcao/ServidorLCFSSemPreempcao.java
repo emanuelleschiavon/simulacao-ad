@@ -14,12 +14,12 @@ public class ServidorLCFSSemPreempcao {
 		}
 	}
 	
-	public void tentaAtendimento(Cliente clienteCorrente, Pilha pilha){
-//		BigDecimal residual = BigDecimal.ZERO;
+	public BigDecimal tentaAtendimento(Cliente clienteCorrente, Pilha pilha){
+		BigDecimal residual = BigDecimal.ZERO;
 		if (servidor == null && pilha.getPilha().isEmpty()){		//sistema vazio
 			servidor = clienteCorrente;
 		}else if (servidor != null){								//servidor ocupado
-			//residual = (servidor.getSaida().subtract(clienteCorrente.getChegada()));
+			residual = (servidor.getSaida().subtract(clienteCorrente.getChegada()));
 			pilha.push(clienteCorrente);
 			atualizaSaidas(clienteCorrente, pilha);
 		}else{														//servidor recebe topo da pilha
@@ -27,6 +27,7 @@ public class ServidorLCFSSemPreempcao {
 			pilha.push(clienteCorrente);
 			atualizaSaidas(clienteCorrente, pilha);
 		}
+		return residual;
 	}
 
 	private void atualizaSaidas(Cliente cliente, Pilha pilha) {
@@ -35,5 +36,13 @@ public class ServidorLCFSSemPreempcao {
 			servicosPilha = servicosPilha.add(clientePilha.getServico());
 			clientePilha.setSaida(servidor.getSaida().add(servicosPilha));
 		}
+	}
+	
+	public BigDecimal pegaTrabalhoPendenteSemResidual(Pilha pilha) {
+		BigDecimal trabalhoPendente = BigDecimal.ZERO;
+		for (Cliente c : pilha.getPilhaInvertida()){
+			trabalhoPendente = trabalhoPendente.add(c.getServico());
+		}
+		return trabalhoPendente;
 	}
 }
