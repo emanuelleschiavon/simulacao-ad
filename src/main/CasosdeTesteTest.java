@@ -201,8 +201,6 @@ public class CasosdeTesteTest {
 		clientesOutro.add(cliente4);
 		clientesOutro.add(cliente5);
 		
-		
-		
 		Simulacao simulacao = new Simulacao();
 		simulacao.setClientes(clientes);
 		simulacao.setClientes2(clientesOutro);
