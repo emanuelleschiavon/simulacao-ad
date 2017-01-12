@@ -30,12 +30,7 @@ public class Pilha {
 		this.topo = elemento;
 		this.vazia = false;
 	}
-	public Cliente pop() throws Exception{
-		
-
-		if (pilhaClientes.size()==0){
-			throw new Exception("Tentando tirar da pilha vazia");
-		}
+	public Cliente pop(){
 		
 		Cliente elemento = topo;
 		pilhaClientes.remove(topo);

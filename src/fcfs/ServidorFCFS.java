@@ -15,7 +15,7 @@ public class ServidorFCFS {
 		}
 	}
 	
-	public void tentaAtendimento(Cliente clienteCorrente, Fila fila, List<Cliente> clientes, int indiceCliente) throws Exception{
+	public void tentaAtendimento(Cliente clienteCorrente, Fila fila, List<Cliente> clientes, int indiceCliente){
 		BigDecimal residual = BigDecimal.ZERO;
 		if (servidor == null){		//sistema vazio
 			servidor = clienteCorrente;

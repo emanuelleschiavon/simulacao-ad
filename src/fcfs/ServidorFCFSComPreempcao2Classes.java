@@ -25,7 +25,7 @@ public class ServidorFCFSComPreempcao2Classes {
 		return clienteExpulso;
 	}
 	
-	public void tentaAtendimento(Cliente clienteCorrente, Fila fila1, Fila fila2, List<Cliente> clientes, int indiceCliente) throws Exception{
+	public void tentaAtendimento(Cliente clienteCorrente, Fila fila1, Fila fila2, List<Cliente> clientes, int indiceCliente){
 		BigDecimal residual = BigDecimal.ZERO;
 		if (servidor == null){		//sistema vazio
 			servidor = clienteCorrente;

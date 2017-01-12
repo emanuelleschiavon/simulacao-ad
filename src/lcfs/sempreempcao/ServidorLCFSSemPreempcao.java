@@ -14,7 +14,7 @@ public class ServidorLCFSSemPreempcao {
 		}
 	}
 	
-	public void tentaAtendimento(Cliente clienteCorrente, Pilha pilha) throws Exception{
+	public void tentaAtendimento(Cliente clienteCorrente, Pilha pilha){
 //		BigDecimal residual = BigDecimal.ZERO;
 		if (servidor == null && pilha.getPilha().isEmpty()){		//sistema vazio
 			servidor = clienteCorrente;

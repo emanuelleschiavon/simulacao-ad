@@ -22,15 +22,15 @@ public class Simulacao {
 		this.clientes = clientes;
 	}
 
-	public void executaSimulacao() throws Exception{
+	public void executaSimulacao(){
 		Pilha pilha = new Pilha();
 		Fila fila = new Fila();
 		fcfs(fila);
-		lcfsComPreempcao(pilha);
-		lcfsSemPreempcao(pilha);
+//		lcfsComPreempcao(pilha);
+//		lcfsSemPreempcao(pilha);
 	}
 	
-	private void lcfsSemPreempcao(Pilha pilha) throws Exception{
+	private void lcfsSemPreempcao(Pilha pilha){
 		ServidorLCFSSemPreempcao servidor = new ServidorLCFSSemPreempcao();
 		for (Cliente cliente : clientes) {
 			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
@@ -40,17 +40,17 @@ public class Simulacao {
 		Impressao.imprimeSaida(clientes);
 	}
 	
-	private void lcfsComPreempcao(Pilha pilha) throws Exception{
+	private void lcfsComPreempcao(Pilha pilha){
 		ServidorLCFSComPreempcao servidor = new ServidorLCFSComPreempcao();
 		for (Cliente cliente : clientes) {
 			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
 			servidor.tentaDesocuparServidor(cliente, pilha);
 			servidor.tentaAtendimento(cliente, pilha);
 		}
-		Impressao.imprimeSaida(clientes);
+//		Impressao.imprimeSaida(clientes);
 	}
 	
-	private void fcfs(Fila fila) throws Exception{
+	private void fcfs(Fila fila){
 		ServidorFCFS servidor = new ServidorFCFS();
 		int indiceCliente = -1;
 
@@ -62,26 +62,21 @@ public class Simulacao {
 		Impressao.imprimeSaida(clientes);
 	}
 	
-	private void fcfsComPreempcao2Filas(Fila fila1, Fila fila2) throws Exception{
+	private void fcfsComPreempcao2Filas(Fila fila1, Fila fila2){
 		ServidorFCFSComPreempcao2Classes servidor = new ServidorFCFSComPreempcao2Classes();
 		int indiceCliente = -1;
 		
-		for (Cliente clienteFila1 : clientes) {indiceCliente++;
+		for (Cliente clienteFila1 : clientes) {
+			indiceCliente++;
 			clienteFila1.setSaida(clienteFila1.getChegada().add(clienteFila1.getServico()));
 			Cliente clienteFila2 = clientes2.get(0);
 			Cliente clientePrioridade = servidor.verificaClienteAtendidoAntes(clienteFila1, clienteFila2);
 			servidor.tentaDesocuparServidor(clientePrioridade);
 			servidor.tentaAtendimento(clienteFila1, fila1, fila2, clientes, indiceCliente);
 		}
-		Impressao.imprimeSaida(clientes, clientes2);
+//		Impressao.imprimeSaida(clientes, clientes2);
 	}
 	
-	private void imprimeSaida(){
-		for (Cliente cliente : clientes) {
-			System.out.println("Chegada " + cliente.getChegada().toString());
-			System.out.println("Serviço " + cliente.getServico().toString());
-			System.out.println("Saída " + cliente.getSaida().toString() + "\n");
-		}
-	}
+
 
 }

@@ -17,7 +17,7 @@ public class ServidorLCFSComPreempcao {
 		servidor = null;
 	}
 	
-	public void tentaAtendimento(Cliente clienteCorrente, Pilha pilha) throws Exception{
+	public void tentaAtendimento(Cliente clienteCorrente, Pilha pilha){
 		servidor = clienteCorrente;
 		atualizaSaidas(clienteCorrente, pilha);
 	}

@@ -2,7 +2,6 @@ package main;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.junit.Test;
 
@@ -11,7 +10,7 @@ import entidade.Cliente;
 public class MainTest {
 
 	@Test
-	public void simulacaoLCFSSemPreempcao() throws Exception {
+	public void simulacaoLCFSSemPreempcao(){
 		List<Cliente> clientes = new ArrayList<>();
 		Cliente cliente = new Cliente();
 		cliente.setChegada(BigDecimal.ONE);
@@ -145,12 +144,5 @@ public class MainTest {
 		simulacao.setClientes(clientes);
 		simulacao.executaSimulacao();
 	}
-	
-	@SuppressWarnings("unused")
-	private void geraChegadas(List<Cliente> clientes){
-		Random gerador = new Random();
-		for (Cliente cliente : clientes) {
-			cliente.setChegada(BigDecimal.valueOf(gerador.nextDouble()));
-		}
-	}
+
 }
