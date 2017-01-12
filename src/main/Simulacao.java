@@ -39,7 +39,7 @@ public class Simulacao {
 		fcfsComPreempcao2Filas(fila1, fila2);
 	}
 	
-	public void lcfsSemPreempcao(Pilha pilha){
+	private void lcfsSemPreempcao(Pilha pilha){
 		ServidorLCFSSemPreempcao servidor = new ServidorLCFSSemPreempcao();
 		for (Cliente cliente : clientes) {
 			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
@@ -51,7 +51,7 @@ public class Simulacao {
 		Impressao.imprimeSaida(clientes);
 	}
 	
-	public void lcfsComPreempcao(Pilha pilha){
+	private void lcfsComPreempcao(Pilha pilha){
 		ServidorLCFSComPreempcao servidor = new ServidorLCFSComPreempcao();
 		for (Cliente cliente : clientes) {
 			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
@@ -62,13 +62,13 @@ public class Simulacao {
 //		Impressao.imprimeSaida(clientes);
 	}
 	
-	public void fcfs(Fila fila){
+	private void fcfs(Fila fila){
 		ServidorFCFS servidor = new ServidorFCFS();
 		int indiceCliente = -1;
 
 		for (Cliente cliente : clientes) {indiceCliente++;
 			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
-			servidor.tentaDesocuparServidor(cliente);
+			servidor.tentaDesocuparServidor(cliente, fila);
 			cliente.setPendente(servidor.pegaTrabalhoPendenteSemResidual(fila));
 			BigDecimal residual = servidor.tentaAtendimento(cliente, fila, clientes, indiceCliente);
 			cliente.setPendente(cliente.getPendente().add(residual));
@@ -76,7 +76,7 @@ public class Simulacao {
 		Impressao.imprimeSaida(clientes);
 	}
 	
-	public void fcfsComPreempcao2Filas(Fila fila1, Fila fila2){
+	private void fcfsComPreempcao2Filas(Fila fila1, Fila fila2){
 		ServidorFCFSComPreempcao2Classes servidor = new ServidorFCFSComPreempcao2Classes();
 		ServidorFCFS servidorfcfs = new ServidorFCFS();
 		
@@ -100,7 +100,7 @@ public class Simulacao {
 				if (clienteFila2.equals(clientePrioridade)){
 					int contador = 0;
 					clienteFila2.setSaida(clienteFila2.getChegada().add(clienteFila2.getServico()));
-					servidorfcfs.tentaDesocuparServidor(clienteFila2);
+					servidorfcfs.tentaDesocuparServidor(clienteFila2, fila2);
 					clienteFila2.setPendente(servidorfcfs.pegaTrabalhoPendenteSemResidual(fila2));
 					BigDecimal residual = servidorfcfs.tentaAtendimento(clienteFila2, fila2, clientes2, indiceCliente);
 					clientes2.get(contador).setPendente(clienteFila2.getPendente().add(residual));
