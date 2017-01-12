@@ -30,13 +30,13 @@ public class Simulacao {
 	}
 
 	public void executaSimulacao(){
-//		Pilha pilha = new Pilha();
-		Fila fila1 = new Fila();
-		Fila fila2 = new Fila();
+		Pilha pilha = new Pilha();
+//		Fila fila1 = new Fila();
+//		Fila fila2 = new Fila();
 //		fcfs(fila1);
 //		lcfsComPreempcao(pilha);
-//		lcfsSemPreempcao(pilha);
-		fcfsComPreempcao2Filas(fila1, fila2);
+		lcfsSemPreempcao(pilha);
+//		fcfsComPreempcao2Filas(fila1, fila2);
 	}
 	
 	public void lcfsSemPreempcao(Pilha pilha){
@@ -68,7 +68,7 @@ public class Simulacao {
 
 		for (Cliente cliente : clientes) {indiceCliente++;
 			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
-			servidor.tentaDesocuparServidor(cliente);
+			servidor.tentaDesocuparServidor(cliente, fila);
 			cliente.setPendente(servidor.pegaTrabalhoPendenteSemResidual(fila));
 			BigDecimal residual = servidor.tentaAtendimento(cliente, fila, clientes, indiceCliente);
 			cliente.setPendente(cliente.getPendente().add(residual));
@@ -100,7 +100,7 @@ public class Simulacao {
 				if (clienteFila2.equals(clientePrioridade)){
 					int contador = 0;
 					clienteFila2.setSaida(clienteFila2.getChegada().add(clienteFila2.getServico()));
-					servidorfcfs.tentaDesocuparServidor(clienteFila2);
+					servidorfcfs.tentaDesocuparServidor(clienteFila2, fila2);
 					clienteFila2.setPendente(servidorfcfs.pegaTrabalhoPendenteSemResidual(fila2));
 					BigDecimal residual = servidorfcfs.tentaAtendimento(clienteFila2, fila2, clientes2, indiceCliente);
 					clientes2.get(contador).setPendente(clienteFila2.getPendente().add(residual));
