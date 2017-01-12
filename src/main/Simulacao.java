@@ -48,7 +48,7 @@ public class Simulacao {
 			BigDecimal residual = servidor.tentaAtendimento(cliente, pilha);
 			cliente.setPendente(cliente.getPendente().add(residual));
 		}
-		Impressao.imprimeSaida(clientes);
+		Impressao.imprimeSaida(clientes, "lcfs sem preempcao");
 	}
 	
 	public void lcfsComPreempcao(Pilha pilha){
@@ -59,7 +59,7 @@ public class Simulacao {
 			cliente.setPendente(servidor.pegaTrabalhoPendenteSemResidual(pilha));
 			servidor.tentaAtendimento(cliente, pilha);
 		}
-//		Impressao.imprimeSaida(clientes);
+		Impressao.imprimeSaida(clientes, "lcfs com preempcao");
 	}
 	
 	public void fcfs(Fila fila){
@@ -73,7 +73,7 @@ public class Simulacao {
 			BigDecimal residual = servidor.tentaAtendimento(cliente, fila, clientes, indiceCliente);
 			cliente.setPendente(cliente.getPendente().add(residual));
 		}
-		Impressao.imprimeSaida(clientes);
+		Impressao.imprimeSaida(clientes, "fcfs sem preempcao");
 	}
 	
 	public void fcfsComPreempcao2Filas(Fila fila1, Fila fila2){
