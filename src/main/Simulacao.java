@@ -30,7 +30,7 @@ public class Simulacao {
 //		lcfsSemPreempcao(pilha);
 	}
 	
-	private void lcfsSemPreempcao(Pilha pilha){
+	void lcfsSemPreempcao(Pilha pilha){
 		ServidorLCFSSemPreempcao servidor = new ServidorLCFSSemPreempcao();
 		for (Cliente cliente : clientes) {
 			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
@@ -40,17 +40,17 @@ public class Simulacao {
 		Impressao.imprimeSaida(clientes);
 	}
 	
-	private void lcfsComPreempcao(Pilha pilha){
+	void lcfsComPreempcao(Pilha pilha){
 		ServidorLCFSComPreempcao servidor = new ServidorLCFSComPreempcao();
 		for (Cliente cliente : clientes) {
 			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
 			servidor.tentaDesocuparServidor(cliente, pilha);
 			servidor.tentaAtendimento(cliente, pilha);
 		}
-//		Impressao.imprimeSaida(clientes);
+		Impressao.imprimeSaida(clientes);
 	}
 	
-	private void fcfs(Fila fila){
+	void fcfs(Fila fila){
 		ServidorFCFS servidor = new ServidorFCFS();
 		int indiceCliente = -1;
 

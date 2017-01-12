@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.jfree.ui.RefineryUtilities;
 import org.junit.Test;
 
 import entidade.Cliente;
@@ -82,14 +83,7 @@ public class PrincipalTest {
 		
 		return clientes;
 	}
-	
-	private void geraChegadas(List<Cliente> clientes){
-		Random gerador = new Random();
-		for (Cliente cliente : clientes) {
-			cliente.setChegada(BigDecimal.valueOf(gerador.nextDouble()));
-		}
-	}
-	
+		
 	private List<BigDecimal>  geravaloresUniformes(){
 		
 		List<BigDecimal> uniformes = new ArrayList<>();
