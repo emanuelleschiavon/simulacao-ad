@@ -7,6 +7,7 @@ public class Cliente {
 	private BigDecimal saida;
 	private BigDecimal servico;
 	private BigDecimal pendente;
+	private BigDecimal residual;
 	private int tamanhoFilaChegada = 0;
 	
 	public BigDecimal getChegada() {
@@ -40,6 +41,12 @@ public class Cliente {
 	}
 	public void setPendente(BigDecimal pendente) {
 		this.pendente = pendente;
+	}
+	public BigDecimal getResidual() {
+		return residual;
+	}
+	public void setResidual(BigDecimal residual) {
+		this.residual = residual;
 	}
 	
 }

@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -25,7 +26,7 @@ public class MainGrafico extends JFrame {
 	
 	private static final double LAMBDA = 0.9; // taxa chegada
 	private static final double MU = 1; // taxa servico
-	private static final int N = 100;  // total clientes
+	private static final int N = 1000;  // total clientes
    /**
 	 * 
 	 */
@@ -44,15 +45,57 @@ public class MainGrafico extends JFrame {
 	private XYDataset createDataset(List<Cliente> clientes, String yAxisLabel) {
 	    XYSeriesCollection dataset = new XYSeriesCollection();
 	    XYSeries series1 = new XYSeries("lambda = 0.9; mu = 1");
-	
-	 if(yAxisLabel.compareTo("tempo de servico") == 0)
+	    
+	 if(yAxisLabel.compareTo("tempo de servico") == 0){
+		 double esperancaServico = 0;
 		 for (Cliente c : clientes) {
 			 series1.add(c.getChegada(), c.getServico());
+			 esperancaServico += c.getServico().doubleValue();
 		}
-	 if(yAxisLabel.compareTo("servico pendente") == 0)
+		 esperancaServico = esperancaServico/N;
+		 series1.setKey(series1.getKey() + "; esperanca = " + esperancaServico);
+	 }
+	 
+	 if(yAxisLabel.compareTo("servico pendente") == 0){ 
+		 double esperancaPendente = 0;
 		 for (Cliente c : clientes) {
 			 series1.add(c.getChegada(), c.getPendente());
+			 esperancaPendente += c.getPendente().doubleValue();
 		}
+		 esperancaPendente = esperancaPendente/N;
+		 series1.setKey(series1.getKey() + "; esperanca = " + esperancaPendente);
+	 }
+	 
+	 if(yAxisLabel.compareTo("tempo de espera") == 0){ 
+		 double esperancaEspera = 0;
+		 for (Cliente c : clientes) {
+			 series1.add(c.getChegada(), (c.getSaida().subtract(c.getChegada())).subtract(c.getServico()) );
+			 esperancaEspera += (c.getSaida().subtract(c.getChegada())).subtract(c.getServico()).doubleValue();
+		}
+		 esperancaEspera = esperancaEspera/N;
+		 series1.setKey(series1.getKey() + "; esperanca = " + esperancaEspera);
+	 }
+	 
+	 if(yAxisLabel.compareTo("tempo no sistema") == 0){ 
+		 double esperancaSistema = 0;
+		 for (Cliente c : clientes) {
+			 series1.add(c.getChegada(), c.getSaida().subtract(c.getChegada()) );
+			 esperancaSistema += c.getSaida().subtract(c.getChegada()).doubleValue();
+		}
+		 esperancaSistema = esperancaSistema/N;
+		 series1.setKey(series1.getKey() + "; esperanca = " + esperancaSistema);
+	 }
+	 
+	 if(yAxisLabel.compareTo("tempo residual") == 0){
+		 double esperancaResidual = 0;
+		 for (Cliente c : clientes) {
+			 series1.add(c.getChegada(), c.getResidual());
+			 esperancaResidual += c.getResidual().doubleValue();
+		}
+		 esperancaResidual = esperancaResidual/N;
+		 series1.setKey(series1.getKey() + "; esperanca = " + esperancaResidual);
+	 }
+	 
 	    dataset.addSeries(series1);
 	 
 	    return dataset;
@@ -87,27 +130,56 @@ public class MainGrafico extends JFrame {
 	
 	public static void simulacaoTest(){
 		Simulacao sim = new Simulacao();
-		Fila fila = new Fila();
+		Fila fila1 = new Fila();
+		Fila fila2 = new Fila();
 		Pilha pilha = new Pilha();
 		List<Cliente> clientes = geraClientes();
+		List<Cliente> clientes2 = geraClientes();
 		
 		sim.setClientes(clientes);
-		sim.fcfs(fila);
+		sim.fcfs(fila1);
 		new MainGrafico(clientes, "fcfs sem preempcao", "tempo de servico").setVisible(true);
 		new MainGrafico(clientes, "fcfs sem preempcao", "servico pendente").setVisible(true);
+		new MainGrafico(clientes, "fcfs sem preempcao", "tempo de espera").setVisible(true);
+		new MainGrafico(clientes, "fcfs sem preempcao", "tempo no sistema").setVisible(true);
+		new MainGrafico(clientes, "fcfs sem preempcao", "tempo residual").setVisible(true);
 		
 //		clientes.clear();
 //		clientes = geraClientes();
+//		sim.setClientes(clientes);
 //		sim.lcfsComPreempcao(pilha);
 //		new MainGrafico(clientes, "lcfs com preempcao", "tempo de servico").setVisible(true);
 //		new MainGrafico(clientes, "lcfs com preempcao", "servico pendente").setVisible(true);
+//		new MainGrafico(clientes, "lcfs com preempcao", "tempo de espera").setVisible(true);
+//		new MainGrafico(clientes, "lcfs com preempcao", "tempo no sistema").setVisible(true);
 //		
+//		pilha.getPilha().clear();
 //		clientes.clear();
 //		clientes = geraClientes();
+//		sim.setClientes(clientes);
 //		sim.lcfsSemPreempcao(pilha);
 //		new MainGrafico(clientes, "lcfs sem preempcao", "tempo de servico").setVisible(true);
 //		new MainGrafico(clientes, "lcfs sem preempcao", "servico pendente").setVisible(true);
+//		new MainGrafico(clientes, "lcfs sem preempcao", "tempo de espera").setVisible(true);
+//		new MainGrafico(clientes, "lcfs sem preempcao", "tempo no sistema").setVisible(true);
 		
+//		fila1.getFilaClientes().clear();
+//		clientes.clear();
+//		clientes = geraClientes();
+//		sim.setClientes(clientes);
+//		sim.setClientes2(clientes2);
+//		sim.fcfsComPreempcao2Filas(fila1, fila2);
+//		new MainGrafico(clientes, "lcfs sem preempcao classe 1", "tempo de servico").setVisible(true);
+//		new MainGrafico(clientes2, "lcfs sem preempcao classe 2", "tempo de servico").setVisible(true);
+//		
+//		new MainGrafico(clientes, "lcfs sem preempcao classe 1", "servico pendente").setVisible(true);
+//		new MainGrafico(clientes2, "lcfs sem preempcao classe 2", "servico pendente").setVisible(true);
+//		
+//		new MainGrafico(clientes, "lcfs sem preempcao classe 1", "tempo de espera").setVisible(true);
+//		new MainGrafico(clientes2, "lcfs sem preempcao classe 2", "tempo de espera").setVisible(true);
+//		
+//		new MainGrafico(clientes, "lcfs sem preempcao classe 1", "tempo no sistema").setVisible(true);
+//		new MainGrafico(clientes2, "lcfs sem preempcao classe 2", "tempo no sistema").setVisible(true);
 		
 	}
 	
