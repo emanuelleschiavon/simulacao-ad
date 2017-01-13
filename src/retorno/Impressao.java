@@ -1,5 +1,7 @@
 package retorno;
 
+import java.util.List;
+
 import entidade.Cliente;
 
 public class Impressao {
