@@ -146,6 +146,45 @@ public class CasosdeTesteTest {
 	}
 
 	@Test
+	public void simulacaoFCFS2() throws Exception {
+		List<Cliente> clientes = new ArrayList<>();
+		Cliente cliente = new Cliente();
+		cliente.setChegada(BigDecimal.ONE);
+		cliente.setServico(BigDecimal.valueOf(2));
+		
+		Cliente cliente2 = new Cliente();
+		cliente2.setChegada(BigDecimal.valueOf(2));
+		cliente2.setServico(BigDecimal.valueOf(2));
+		
+		Cliente cliente3 = new Cliente();
+		cliente3.setChegada(BigDecimal.valueOf(3));
+		cliente3.setServico(BigDecimal.valueOf(2));
+		
+		Cliente cliente4 = new Cliente();
+		cliente4.setChegada(BigDecimal.valueOf(4));
+		cliente4.setServico(BigDecimal.valueOf(2));
+	
+		Cliente cliente5 = new Cliente();
+		cliente5.setChegada(BigDecimal.valueOf(5));
+		cliente5.setServico(BigDecimal.valueOf(2));
+
+		Cliente cliente6 = new Cliente();
+		cliente6.setChegada(BigDecimal.valueOf(6));
+		cliente6.setServico(BigDecimal.valueOf(2));
+	
+		clientes.add(cliente);
+		clientes.add(cliente2);
+		clientes.add(cliente3);
+		clientes.add(cliente4);
+		clientes.add(cliente5);
+		clientes.add(cliente6);
+		
+		Simulacao simulacao = new Simulacao();
+		simulacao.setClientes(clientes);
+		simulacao.executaSimulacao();
+	}
+
+	@Test
 	public void simulacaoFCFS2ComPreempcaoTest(){
 		List<Cliente> clientes = new ArrayList<>();
 		Cliente cliente = new Cliente();

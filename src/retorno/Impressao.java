@@ -16,7 +16,7 @@ public class Impressao {
 			System.out.println("Chegada " + cliente.getChegada().toString());
 			System.out.println("Serviço " + cliente.getServico().toString());
 			System.out.println("Saída " + cliente.getSaida().toString() + "\n");
-			//System.out.println("Primeira alocacao na fila: " + cliente.getTamanhoFilaChegada() + "\n");
+			System.out.println("Tamanho da Fila na Chegada: " + cliente.getTamanhoFilaChegada() + "\n");
 		}
 		i = 0;
 		System.out.println("-------------------------------------------------------------------------");
@@ -29,7 +29,7 @@ public class Impressao {
 			System.out.println("Chegada " + cliente.getChegada().toString());
 			System.out.println("Serviço " + cliente.getServico().toString());
 			System.out.println("Saída " + cliente.getSaida().toString() + "\n");
-			//System.out.println("Primeira alocacao na fila: " + cliente.getTamanhoFilaChegada() + "\n");
+			System.out.println("Tamanho da Fila na Chegada: " + cliente.getTamanhoFilaChegada() + "\n");
 		}	
 	}
 	
@@ -42,7 +42,7 @@ public class Impressao {
 			System.out.println("Serviço " + cliente.getServico().toString());
 			System.out.println("Saída " + cliente.getSaida().toString());
 			System.out.println("Servico pendente: " + cliente.getPendente());
-			System.out.println("Primeira alocacao na fila: " + cliente.getTamanhoFilaChegada() + "\n");
+			System.out.println("Tamanho da Fila na Chegada: " + cliente.getTamanhoFilaChegada() + "\n");
 		}
 	}
 
@@ -57,7 +57,7 @@ public class Impressao {
 			System.out.println("Serviço " + cliente.getServico().toString());
 			System.out.println("Saída " + cliente.getSaida().toString());
 			System.out.println("Servico pendente: " + cliente.getPendente());
-			System.out.println("Primeira alocacao na fila: " + cliente.getTamanhoFilaChegada() + "\n");
+			System.out.println("Tamanho da Fila Chegada: " + cliente.getTamanhoFilaChegada() + "\n");
 		}
 	}
 

@@ -30,13 +30,13 @@ public class Simulacao {
 	}
 
 	public void executaSimulacao(){
-		Pilha pilha = new Pilha();
+//		Pilha pilha = new Pilha();
 		Fila fila1 = new Fila();
-		Fila fila2 = new Fila();
+//		Fila fila2 = new Fila();
 		fcfs(fila1);
-		lcfsComPreempcao(pilha);
-		lcfsSemPreempcao(pilha);
-		fcfsComPreempcao2Filas(fila1, fila2);
+//		lcfsComPreempcao(pilha);
+//		lcfsSemPreempcao(pilha);
+//		fcfsComPreempcao2Filas(fila1, fila2);
 	}
 	
 	public void lcfsSemPreempcao(Pilha pilha){
@@ -64,15 +64,22 @@ public class Simulacao {
 	
 	public void fcfs(Fila fila){
 		ServidorFCFS servidor = new ServidorFCFS();
-		int indiceCliente = -1;
+		int posCliente = -1;
 
-		for (Cliente cliente : clientes) {indiceCliente++;
-			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
-			servidor.tentaDesocuparServidor(cliente, fila, indiceCliente, clientes);
-			BigDecimal residual = servidor.tentaAtendimento(cliente, fila, clientes, indiceCliente);
-			fila = servidor.tamanhoFila2(cliente, clientes, indiceCliente);
-			cliente.setPendente(cliente.getPendente().add(residual));
+		for (Cliente cliente : clientes) {posCliente++;
+			servidor.atualizaServidor(cliente, clientes, posCliente);
+			fila = servidor.atualizaFila(cliente, clientes, fila, posCliente);
+		
+			Cliente clienteAnterior = servidor.pegaClienteN(clientes, posCliente-1);
+
+			servidor.calculaSaidaCorrente(cliente, clienteAnterior);
+
 			cliente.setTamanhoFilaChegada(fila.getFilaClientes().size());
+
+			servidor.setaResidual(cliente);
+			servidor.setaServicoPendente(fila, cliente);
+			
+			
 		}
 		Impressao.imprimeSaida(clientes, "fcfs sem preempcao");
 	}
@@ -96,17 +103,22 @@ public class Simulacao {
 				clientePrioridade = clienteFila1;
 			}
 //			if(indiceCliente+1 == clientes.size())
-			
+			int posCliente2 = 0;
 			for (Cliente clienteFila2 : fila2.getFilaClientes()) {
+				posCliente2 ++;
 				if (clienteFila2.equals(clientePrioridade)){
-					int contador = 0;
-					clienteFila2.setSaida(clienteFila2.getChegada().add(clienteFila2.getServico()));
-					servidorfcfs.tentaDesocuparServidor(clienteFila2, fila2, contador, clientes);
-					clienteFila2.setPendente(clienteFila2.getPendente());
-					BigDecimal residual = servidorfcfs.tentaAtendimento(clienteFila2, fila2, clientes2, indiceCliente);
-					clientes2.get(contador).setPendente(clienteFila2.getPendente().add(residual));
-					contador++;
-					indiceFila2++;
+					servidorfcfs.atualizaServidor(clienteFila2, clientes, posCliente2);
+					fila2 = servidorfcfs.atualizaFila(clienteFila2, clientes, fila2, posCliente2);
+				
+					Cliente clienteAnterior = servidorfcfs.pegaClienteN(clientes, posCliente2-1);
+
+					clienteFila2.setTamanhoFilaChegada(fila2.getFilaClientes().size());
+
+					servidorfcfs.setaResidual(clienteFila2);
+					servidorfcfs.setaServicoPendente(fila2, clienteFila2);
+					
+					servidorfcfs.calculaSaidaCorrente(clienteFila2, clienteAnterior);
+					
 				}else{
 					break;
 				}
