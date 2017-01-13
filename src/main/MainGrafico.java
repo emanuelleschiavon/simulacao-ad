@@ -1,25 +1,7 @@
-package main;
-import java.awt.BorderLayout;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.text.StyledEditorKit.ForegroundAction;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-
-import entidade.Cliente;
-import entidade.Fila;
-import entidade.Pilha;
+package src.main;
+import src.entidade.Cliente;
+import src.entidade.Fila;
+import src.entidade.Pilha;
 
 public class MainGrafico extends JFrame {
 
