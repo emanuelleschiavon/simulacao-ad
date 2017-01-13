@@ -7,8 +7,8 @@ import entidade.Fila;
 import entidade.Pilha;
 import fcfs.ServidorFCFS;
 import fcfs.ServidorFCFSComPreempcao2Classes;
-import lcfs.compreempcao.ServidorLCFSComPreempcao;
-import lcfs.sempreempcao.ServidorLCFSSemPreempcao;
+import lcfs.ServidorLCFSComPreempcao;
+import lcfs.ServidorLCFSSemPreempcao;
 import retorno.Impressao;
 
 public class Simulacao {
