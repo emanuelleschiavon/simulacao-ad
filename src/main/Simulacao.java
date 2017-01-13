@@ -56,8 +56,11 @@ public class Simulacao {
 		for (Cliente cliente : clientes) {
 			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
 			servidor.tentaDesocuparServidor(cliente, pilha);
-			cliente.setPendente(servidor.pegaTrabalhoPendenteSemResidual(pilha));
 			servidor.tentaAtendimento(cliente, pilha);
+
+			servidor.setaResidual(cliente);
+			servidor.setaServicoPendente(pilha, cliente);
+			
 		}
 		Impressao.imprimeSaida(clientes, "lcfs com preempcao");
 	}

@@ -1,5 +1,6 @@
 package lcfs;
 import java.math.BigDecimal;
+import java.util.List;
 
 import entidade.Cliente;
 import entidade.Pilha;
@@ -30,12 +31,36 @@ public class ServidorLCFSComPreempcao {
 		}
 	}
 	
-	public BigDecimal pegaTrabalhoPendenteSemResidual(Pilha pilha) {
-		BigDecimal trabalhoPendente = BigDecimal.ZERO;
-		for (Cliente c : pilha.getPilhaInvertida()){
-			trabalhoPendente = trabalhoPendente.add(c.getServico());
+	/**
+	 * Adiciona o serviço residual no momento em que chega o cliente
+	 */
+	public void setaResidual(Cliente cliente){
+		if (servidor != null){
+			cliente.setResidual(servidor.getSaida().subtract(cliente.getChegada()));
+		}else{
+			cliente.setResidual(BigDecimal.ZERO);
 		}
-		return trabalhoPendente;
+	}
+
+	/**
+	 * Adiciona o serviço pendente no servidor no momento da chegada do cliente
+	 */
+	public void setaServicoPendente(Pilha pilha, Cliente cliente) {
+		BigDecimal servicosPendentes = BigDecimal.ZERO;
+		for (Cliente c : pilha.getPilha()) {
+			servicosPendentes = servicosPendentes.add(c.getServico());
+		}
+		cliente.setPendente(servicosPendentes.add(cliente.getResidual()));
 	}
 	
+	/**
+	 * Adiciona o período ocupado do sistema no instante da chegada do cliente
+	 */
+	public void setaPeriodoOcupado(Cliente cliente, List<Cliente> clientes, int posCliente){
+		BigDecimal somaServicos = BigDecimal.ZERO;
+		for (int i=0; i<posCliente; i++){
+			somaServicos = somaServicos.add(clientes.get(i).getServico());
+		}
+		cliente.setPeriodoOcupado(somaServicos.subtract(cliente.getResidual()));
+	}
 }

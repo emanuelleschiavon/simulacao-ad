@@ -8,6 +8,7 @@ import entidade.Fila;
 
 public class ServidorFCFS {
 	private Cliente servidor;
+	private int posServidor = 0;
 	
 	/**
 	 * A saída do cliente corrente vai ser a taxa de entrada ou a saída do anterior + serviço
@@ -26,7 +27,6 @@ public class ServidorFCFS {
 		}
 	}
 	
-
 	/**
 	 * Retorna o enésimo cliente, n = @param posCliente
 	 */
@@ -44,6 +44,7 @@ public class ServidorFCFS {
 		for (int i=0; i<posCliente; i++){
 			if (clientes.get(i).getSaida().compareTo(cliente.getChegada()) == 1){
 				servidor = clientes.get(i);
+				posServidor = i;
 				break;
 			}else{
 				servidor = null;
@@ -93,9 +94,16 @@ public class ServidorFCFS {
 	 */
 	public void setaPeriodoOcupado(Cliente cliente, List<Cliente> clientes, int posCliente){
 		BigDecimal somaServicos = BigDecimal.ZERO;
-		for (int i=0; i<posCliente; i++){
-			somaServicos = somaServicos.add(clientes.get(i).getServico());
+		if (servidor != null){
+			for (int i=0; i<posServidor; i++){
+				somaServicos = somaServicos.add(clientes.get(i).getServico());
+			}
+			cliente.setPeriodoOcupado(somaServicos.subtract(servidor.getResidual()));
+		}else{
+			for (int i=0; i<posCliente; i++){
+				somaServicos = somaServicos.add(clientes.get(i).getServico());
+			}
+			cliente.setPeriodoOcupado(somaServicos);
 		}
-		cliente.setPeriodoOcupado(somaServicos.subtract(cliente.getResidual()));
 	}
 }
