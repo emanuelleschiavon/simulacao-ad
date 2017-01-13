@@ -65,7 +65,7 @@ public class ServidorFCFS {
 	}
 	
 	/**
-	 * Retorna o serviço residual no momento em que chega o cliente
+	 * Adiciona o serviço residual no momento em que chega o cliente
 	 */
 	public void setaResidual(Cliente cliente){
 		if (servidor != null){
@@ -76,7 +76,9 @@ public class ServidorFCFS {
 		
 	}
 
-
+	/**
+	 * Adiciona o serviço pendente no servidor no momento da chegada do cliente
+	 */
 	public void setaServicoPendente(Fila fila, Cliente cliente) {
 		BigDecimal servicosPendentes = BigDecimal.ZERO;
 		for (Cliente c : fila.getFilaClientes()) {
@@ -86,4 +88,14 @@ public class ServidorFCFS {
 		
 	}
 	
+	/**
+	 * Adiciona o período ocupado do sistema no instante da chegada do cliente
+	 */
+	public void setaPeriodoOcupado(Cliente cliente, List<Cliente> clientes, int posCliente){
+		BigDecimal somaServicos = BigDecimal.ZERO;
+		for (int i=0; i<posCliente; i++){
+			somaServicos = somaServicos.add(clientes.get(i).getServico());
+		}
+		cliente.setPeriodoOcupado(somaServicos.subtract(cliente.getResidual()));
+	}
 }

@@ -71,15 +71,15 @@ public class Simulacao {
 			fila = servidor.atualizaFila(cliente, clientes, fila, posCliente);
 		
 			Cliente clienteAnterior = servidor.pegaClienteN(clientes, posCliente-1);
-
 			servidor.calculaSaidaCorrente(cliente, clienteAnterior);
 
 			cliente.setTamanhoFilaChegada(fila.getFilaClientes().size());
-
+			cliente.setTempoSistema(cliente.getSaida().subtract(cliente.getChegada()));
+			cliente.setTempoFila(cliente.getTempoSistema().subtract(cliente.getServico()));
+			
 			servidor.setaResidual(cliente);
 			servidor.setaServicoPendente(fila, cliente);
-			
-			
+			servidor.setaPeriodoOcupado(cliente, clientes, posCliente);
 		}
 		Impressao.imprimeSaida(clientes, "fcfs sem preempcao");
 	}

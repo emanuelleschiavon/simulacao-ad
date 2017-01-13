@@ -24,7 +24,7 @@ public class PrincipalTest {
 	}
 	
 	private List<BigDecimal> geraTemposServico(){
-		List<BigDecimal> u = geravaloresUniformes();
+		List<BigDecimal> u = geraValoresUniformes();
 		List<BigDecimal> taxasServico = new ArrayList<>();
 
 		for(BigDecimal b : u){
@@ -38,7 +38,7 @@ public class PrincipalTest {
 	
 	private List<BigDecimal> geraTemposEntreChegadas(){
 		
-		List<BigDecimal> u = geravaloresUniformes();
+		List<BigDecimal> u = geraValoresUniformes();
 		List<BigDecimal> temposEntreChegadas = new ArrayList<>();
 		
 		for(BigDecimal b : u){
@@ -83,14 +83,7 @@ public class PrincipalTest {
 		return clientes;
 	}
 	
-	private void geraChegadas(List<Cliente> clientes){
-		Random gerador = new Random();
-		for (Cliente cliente : clientes) {
-			cliente.setChegada(BigDecimal.valueOf(gerador.nextDouble()));
-		}
-	}
-	
-	private List<BigDecimal>  geravaloresUniformes(){
+	private List<BigDecimal>  geraValoresUniformes(){
 		
 		List<BigDecimal> uniformes = new ArrayList<>();
 		
