@@ -69,9 +69,10 @@ public class Simulacao {
 		for (Cliente cliente : clientes) {indiceCliente++;
 			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
 			servidor.tentaDesocuparServidor(cliente, fila, indiceCliente, clientes);
-			cliente.setPendente(servidor.pegaTrabalhoPendenteSemResidual(fila));
 			BigDecimal residual = servidor.tentaAtendimento(cliente, fila, clientes, indiceCliente);
+			fila = servidor.tamanhoFila2(cliente, clientes, indiceCliente);
 			cliente.setPendente(cliente.getPendente().add(residual));
+			cliente.setTamanhoFilaChegada(fila.getFilaClientes().size());
 		}
 		Impressao.imprimeSaida(clientes, "fcfs sem preempcao");
 	}
@@ -101,7 +102,7 @@ public class Simulacao {
 					int contador = 0;
 					clienteFila2.setSaida(clienteFila2.getChegada().add(clienteFila2.getServico()));
 					servidorfcfs.tentaDesocuparServidor(clienteFila2, fila2, contador, clientes);
-					clienteFila2.setPendente(servidorfcfs.pegaTrabalhoPendenteSemResidual(fila2));
+					clienteFila2.setPendente(clienteFila2.getPendente());
 					BigDecimal residual = servidorfcfs.tentaAtendimento(clienteFila2, fila2, clientes2, indiceCliente);
 					clientes2.get(contador).setPendente(clienteFila2.getPendente().add(residual));
 					contador++;
