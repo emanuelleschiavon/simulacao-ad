@@ -5,6 +5,7 @@ import java.util.List;
 
 import entidade.Cliente;
 import entidade.Fila;
+import entidade.Pilha;
 
 public class ServidorFCFSComPreempcao2Classes {
 	private Cliente servidor;
@@ -21,6 +22,35 @@ public class ServidorFCFSComPreempcao2Classes {
 	public void tentaDesocuparServidor(Cliente clienteChegada) {
 		if (servidor != null && servidor.getSaida().compareTo(clienteChegada.getChegada()) != 1){
 			servidor = null;
+		}
+	}
+	
+	/**
+	 * Vê quem está no servidor no momento da chegada do cliente , se estiver vazio fica nulo
+	 */
+	public void atualizaServidor(Cliente cliente, List<Cliente> clientes, int posCliente) {
+		for (int i=0; i<posCliente; i++){
+			if (clientes.get(i).getSaida().compareTo(cliente.getChegada()) == 1){
+				servidor = clientes.get(i);
+				break;
+			}else{
+				servidor = null;
+			}
+		}
+	}
+	
+	/**
+	 * Atualiza os clientes na pilha 
+	 */
+	public void atualizaPilha(Cliente cliente, Pilha pilha){
+		int auxRemocao = 0;
+		for (Cliente c : pilha.getPilhaInvertida()) {
+			if(cliente.getChegada().compareTo(c.getSaida()) == 1){
+				auxRemocao++;
+			}
+		}
+		for (int i = 0; i < auxRemocao; i++) {
+			pilha.pop();
 		}
 	}
 	
