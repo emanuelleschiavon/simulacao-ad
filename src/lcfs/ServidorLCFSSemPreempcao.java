@@ -33,10 +33,14 @@ public class ServidorLCFSSemPreempcao {
 	 * Atualiza os clientes na pilha 
 	 */
 	public void atualizaPilha(Cliente cliente, Pilha pilha){
+		int auxRemocao = 0;
 		for (Cliente c : pilha.getPilhaInvertida()) {
 			if(cliente.getChegada().compareTo(c.getSaida()) == 1){
-				pilha.pop();
+				auxRemocao++;
 			}
+		}
+		for (int i = 0; i < auxRemocao; i++) {
+			pilha.pop();
 		}
 	}
 	

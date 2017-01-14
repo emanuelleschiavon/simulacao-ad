@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import entidade.Cliente;
 
-public class PrincipalTest {
+public class GeraEntrada {
 	
 	private static final double LAMBDA = 0.9; // taxa chegada
 	private static final double MU = 1; // taxa servico

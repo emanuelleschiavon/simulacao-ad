@@ -1,4 +1,4 @@
-package main;
+package teste;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.Test;
 
 import entidade.Cliente;
+import main.Simulacao;
 
 public class CasosdeTesteTest {
 
