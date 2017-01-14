@@ -12,7 +12,7 @@ public class Impressao {
 		
 		for (Cliente cliente : clientes) {
 			i++;
-			System.out.println("Cliente (" + i + ")");
+			System.out.println("Cliente (" + i + ")\n");
 			System.out.println("Chegada: " + cliente.getChegada().toString());
 			System.out.println("Tempo de Serviço: " + cliente.getServico().toString());
 			System.out.println("Saída: " + cliente.getSaida().toString());
@@ -20,7 +20,7 @@ public class Impressao {
 			System.out.println("Tempo no Sistema: " + cliente.getTempoSistema().toString());
 			System.out.println("Tempo na Fila: " + cliente.getTempoFila().toString());
 			System.out.println("Período Ocupado: " + cliente.getPeriodoOcupado());
-			System.out.println("Tamanho da Fila: " + cliente.getTamanhoFilaChegada() + "\n");
+			System.out.println("Tamanho da Fila: " + cliente.getTamanhoFilaChegada() + "\n\n\n");
 		}
 		i = 0;
 		System.out.println("-------------------------------------------------------------------------" + "\n");
@@ -29,7 +29,7 @@ public class Impressao {
 		
 		for (Cliente cliente : clientes2) {
 			i++;
-			System.out.println("Cliente (" + i + ")");
+			System.out.println("Cliente (" + i + ")\n");
 			System.out.println("Chegada: " + cliente.getChegada().toString());
 			System.out.println("Tempo de Serviço: " + cliente.getServico().toString());
 			System.out.println("Saída: " + cliente.getSaida().toString());
@@ -37,7 +37,7 @@ public class Impressao {
 			System.out.println("Tempo no Sistema: " + cliente.getTempoSistema().toString());
 			System.out.println("Tempo na Fila: " + cliente.getTempoFila().toString());
 			System.out.println("Período Ocupado: " + cliente.getPeriodoOcupado());
-			System.out.println("Tamanho da Fila: " + cliente.getTamanhoFilaChegada() + "\n");
+			System.out.println("Tamanho da Fila: " + cliente.getTamanhoFilaChegada() + "\n\n\n");
 		}	
 	}
 	
@@ -45,7 +45,7 @@ public class Impressao {
 		int i = 0;
 		for (Cliente cliente : clientes) {
 			i++;
-			System.out.println("Cliente (" + i + ")");
+			System.out.println("Cliente (" + i + ")\n");
 			System.out.println("Chegada: " + cliente.getChegada().toString());
 			System.out.println("Tempo de Serviço: " + cliente.getServico().toString());
 			System.out.println("Saída: " + cliente.getSaida().toString());
@@ -53,7 +53,7 @@ public class Impressao {
 			System.out.println("Tempo no Sistema: " + cliente.getTempoSistema().toString());
 			System.out.println("Tempo na Fila: " + cliente.getTempoFila().toString());
 			System.out.println("Período Ocupado: " + cliente.getPeriodoOcupado());
-			System.out.println("Tamanho da Fila: " + cliente.getTamanhoFilaChegada() + "\n");
+			System.out.println("Tamanho da Fila: " + cliente.getTamanhoFilaChegada() + "\n\n\n");
 		}
 	}
 
@@ -62,7 +62,7 @@ public class Impressao {
 		System.out.println("Simulacao servidor: " + tipoServidor);
 		for (Cliente cliente : clientes) {
 			i++;
-			System.out.println("Cliente (" + i + ")");
+			System.out.println("Cliente (" + i + ")\n");
 			System.out.println("Chegada: " + cliente.getChegada().toString());
 			System.out.println("Tempo de Serviço: " + cliente.getServico().toString());
 			System.out.println("Saída: " + cliente.getSaida().toString());
@@ -70,7 +70,7 @@ public class Impressao {
 			System.out.println("Tempo no Sistema: " + cliente.getTempoSistema().toString());
 			System.out.println("Tempo na Fila: " + cliente.getTempoFila().toString());
 			System.out.println("Período Ocupado: " + cliente.getPeriodoOcupado());
-			System.out.println("Tamanho da Fila: " + cliente.getTamanhoFilaChegada() + "\n");
+			System.out.println("Tamanho da Fila: " + cliente.getTamanhoFilaChegada() + "\n\n\n");
 		}
 	}
 }

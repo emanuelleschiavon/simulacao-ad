@@ -30,11 +30,11 @@ public class Simulacao {
 	}
 
 	public void executaSimulacao(){
-//		Pilha pilha = new Pilha();
-		Fila fila1 = new Fila();
+		Pilha pilha = new Pilha();
+//		Fila fila1 = new Fila();
 //		Fila fila2 = new Fila();
-		fcfs(fila1);
-//		lcfsComPreempcao(pilha);
+//		fcfs(fila1);
+		lcfsComPreempcao(pilha);
 //		lcfsSemPreempcao(pilha);
 //		fcfsComPreempcao2Filas(fila1, fila2);
 	}
@@ -51,17 +51,28 @@ public class Simulacao {
 		Impressao.imprimeSaida(clientes, "lcfs sem preempcao");
 	}
 	
-	public void lcfsComPreempcao(Pilha pilha){
+	public void lcfsComPreempcao(Pilha pilha){ 
 		ServidorLCFSComPreempcao servidor = new ServidorLCFSComPreempcao();
-		for (Cliente cliente : clientes) {
+		int posCliente = -1;
+		for (Cliente cliente : clientes) {posCliente++;
+			servidor.atualizaPilha(cliente, pilha);
+			servidor.atualizaServidorAntesChegada(cliente, pilha);
 			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
-			servidor.tentaDesocuparServidor(cliente, pilha);
-			servidor.tentaAtendimento(cliente, pilha);
 
+			cliente.setTamanhoFilaChegada(pilha.getPilha().size());
 			servidor.setaResidual(cliente);
-			servidor.setaServicoPendente(pilha, cliente);
 			
+			servidor.setaServicoPendente(pilha, cliente);
+			servidor.setaPeriodoOcupado(cliente, clientes, posCliente);
+	
+			servidor.desocupaServidor(cliente, pilha);
+			servidor.entraServidor(cliente, pilha);
+
+			cliente.setTempoSistema(cliente.getSaida().subtract(cliente.getChegada()));
+			cliente.setTempoFila(cliente.getTempoSistema().subtract(cliente.getServico()));
+
 		}
+		servidor.pegaPeriodosOcupados(clientes);
 		Impressao.imprimeSaida(clientes, "lcfs com preempcao");
 	}
 	

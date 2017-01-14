@@ -9,7 +9,10 @@ public class ServidorLCFSComPreempcao {
 	
 	private Cliente servidor;
 	
-	public void tentaDesocuparServidor(Cliente clienteChegada, Pilha pilha) {
+	/**
+	 * Guarda o cliente que se encontra no servidor na pilha ou retira do sistema se já tiver terminado o serviço
+	 */
+	public void desocupaServidor(Cliente clienteChegada, Pilha pilha) {
 		if(servidor != null){
 			if (servidor.getSaida().compareTo(clienteChegada.getChegada()) == 1){
 				pilha.push(servidor);
@@ -18,19 +21,60 @@ public class ServidorLCFSComPreempcao {
 		servidor = null;
 	}
 	
-	public void tentaAtendimento(Cliente clienteCorrente, Pilha pilha){
-		servidor = clienteCorrente;
-		atualizaSaidas(clienteCorrente, pilha);
-	}
-
-	private void atualizaSaidas(Cliente cliente, Pilha pilha) {
-		BigDecimal servicosPilha = BigDecimal.ZERO;
-		for (Cliente clientePilha : pilha.getPilhaInvertida()){
-			servicosPilha = servicosPilha.add(clientePilha.getServico());
-			clientePilha.setSaida(servidor.getSaida().add(servicosPilha));
+	/**
+	 * Atualiza os clientes na pilha 
+	 */
+	public void atualizaServidorAntesChegada(Cliente clienteCorrente, Pilha pilha){
+		if(servidor != null){	//servidor ta com o anterior
+			if (servidor.getSaida().compareTo(clienteCorrente.getChegada()) == 1){//servidor atualizado
+				
+			}else{		//servidor ocioso
+				servidor = null;}
+		}else{
+			//pega o ultimo da pilha e coloca no servidor
+			for (Cliente c : pilha.getPilhaInvertida()) {
+				if (c.getSaida().compareTo(clienteCorrente.getChegada()) == 1){
+					servidor = c;
+					break;
+				}else{
+					servidor = null;
+				}
+			}
 		}
 	}
 	
+	/**
+	 * Atualiza os clientes na pilha 
+	 */
+	public void atualizaPilha(Cliente cliente, Pilha pilha){
+		for (Cliente c : pilha.getPilhaInvertida()) {
+			if(cliente.getChegada().compareTo(c.getSaida()) == 1){
+				pilha.pop();
+			}
+		}
+	}
+	
+	/**
+	 * Coloca o cliente no servidor e atualiza as saídas dos clientes no sistema e retira os clientes que saíram da pilha
+	 */
+	public void entraServidor(Cliente clienteCorrente, Pilha pilha){
+		servidor = clienteCorrente;
+		atualizaTempos(clienteCorrente, pilha);
+	}
+
+	/**
+	 * Atualiza saídas dos clientes na pilha
+	 */
+	private void atualizaTempos(Cliente cliente, Pilha pilha) {
+		BigDecimal servicosPilha = BigDecimal.ZERO;
+		for (Cliente c : pilha.getPilhaInvertida()){
+			servicosPilha = servicosPilha.add(c.getServico());
+			c.setSaida(servidor.getSaida().add(servicosPilha));
+			c.setTempoSistema(c.getSaida().subtract(c.getChegada()));
+			c.setTempoFila(c.getTempoSistema().subtract(c.getServico())); //está somado ao valor interrompido
+		}
+	}
+
 	/**
 	 * Adiciona o serviço residual no momento em que chega o cliente
 	 */
@@ -62,5 +106,13 @@ public class ServidorLCFSComPreempcao {
 			somaServicos = somaServicos.add(clientes.get(i).getServico());
 		}
 		cliente.setPeriodoOcupado(somaServicos.subtract(cliente.getResidual()));
+	}
+
+	public void pegaPeriodosOcupados(List<Cliente> clientes) {
+		BigDecimal periodoOcupado = BigDecimal.ZERO;
+		for (Cliente cliente : clientes) {
+			periodoOcupado = cliente.getTempoSistema().subtract(cliente.getTempoFila());
+			cliente.setPeriodoOcupado(periodoOcupado);
+		}
 	}
 }
