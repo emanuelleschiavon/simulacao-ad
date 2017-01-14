@@ -27,7 +27,7 @@ public class ServidorLCFSComPreempcao {
 	public void atualizaServidorAntesChegada(Cliente clienteCorrente, Pilha pilha){
 		if(servidor != null){	//servidor ta com o anterior
 			if (servidor.getSaida().compareTo(clienteCorrente.getChegada()) == 1){//servidor atualizado
-				
+				//TODO TIRAR ESSE ELSE E COLOCA != 1
 			}else{		//servidor ocioso
 				servidor = null;}
 		}else{

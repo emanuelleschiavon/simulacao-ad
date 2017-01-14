@@ -1,5 +1,4 @@
 package main;
-import java.math.BigDecimal;
 import java.util.List;
 
 import entidade.Cliente;
@@ -34,19 +33,29 @@ public class Simulacao {
 //		Fila fila1 = new Fila();
 //		Fila fila2 = new Fila();
 //		fcfs(fila1);
-		lcfsComPreempcao(pilha);
-//		lcfsSemPreempcao(pilha);
+//		lcfsComPreempcao(pilha);
+		lcfsSemPreempcao(pilha);
 //		fcfsComPreempcao2Filas(fila1, fila2);
 	}
 	
 	public void lcfsSemPreempcao(Pilha pilha){
 		ServidorLCFSSemPreempcao servidor = new ServidorLCFSSemPreempcao();
-		for (Cliente cliente : clientes) {
+//		int posCliente = -1;
+		for (Cliente cliente : clientes) {//posCliente++;
+			servidor.atualizaPilha(cliente, pilha);
+			servidor.atualizaServidorAntesChegada(cliente, pilha);
+			
 			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
-			cliente.setPendente(servidor.pegaTrabalhoPendenteSemResidual(pilha));
-			servidor.tentaDesocuparServidor(cliente);
-			BigDecimal residual = servidor.tentaAtendimento(cliente, pilha);
-			cliente.setPendente(cliente.getPendente().add(residual));
+			cliente.setTamanhoFilaChegada(pilha.getPilha().size());
+			servidor.setaResidual(cliente);
+
+			servidor.setaServicoPendente(pilha, cliente);
+			//servidor.setaPeriodoOcupado(cliente, clientes, posCliente);
+			
+			servidor.tentaAtendimento(cliente, pilha);
+	
+			cliente.setTempoSistema(cliente.getSaida().subtract(cliente.getChegada()));
+			cliente.setTempoFila(cliente.getTempoSistema().subtract(cliente.getServico()));
 		}
 		Impressao.imprimeSaida(clientes, "lcfs sem preempcao");
 	}
@@ -57,8 +66,8 @@ public class Simulacao {
 		for (Cliente cliente : clientes) {posCliente++;
 			servidor.atualizaPilha(cliente, pilha);
 			servidor.atualizaServidorAntesChegada(cliente, pilha);
+			
 			cliente.setSaida(cliente.getChegada().add(cliente.getServico()));
-
 			cliente.setTamanhoFilaChegada(pilha.getPilha().size());
 			servidor.setaResidual(cliente);
 			
